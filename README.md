@@ -1,7 +1,3 @@
-# class-visa
-COVID-19 support for people looking to sign up for exercise classes
-
-
 ## Development
 
 #### System Requirements
@@ -10,8 +6,8 @@ COVID-19 support for people looking to sign up for exercise classes
 1. Clone the repository
 
     ```shell
-    git clone https://github.com/christianparizeau/class-visa
-    cd class-visa
+    git clone https://github.com/christianparizeau/set-schedule
+    cd set-schedule
     ```
 
 1. Install all dependencies with NPM.
@@ -19,7 +15,7 @@ COVID-19 support for people looking to sign up for exercise classes
     ```shell
     npm install
     ```
- 
+
 1. Start the project. Once started you can view the application by opening http://localhost:3000 in your browser.
 
     ```shell

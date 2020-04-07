@@ -1,5 +1,5 @@
 {
-  "name": "class-visa",
+  "name": "set-schedule",
   "version": "1.0.0",
   "description": "",
   "main": "webpack.config.js",
@@ -98,13 +98,13 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/christianparizeau/class-visa"
+    "url": "git+https://github.com/christianparizeau/set-schedule"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/christianparizeau/class-visa/issues"
+    "url": "https://github.com/christianparizeau/set-schedule/issues"
   },
-  "homepage": "https://github.com/christianparizeau/class-visa#readme"
+  "homepage": "https://github.com/christianparizeau/set-schedule#readme"
 }
