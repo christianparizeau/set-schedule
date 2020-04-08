@@ -34,6 +34,9 @@ export default class App extends React.Component {
           } else {
             this.setState({ isInError: true });
           }
+        })
+        .catch(() => {
+          this.setState({ isInError: true });
         });
     }
   }

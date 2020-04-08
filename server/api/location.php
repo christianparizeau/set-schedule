@@ -29,7 +29,7 @@ function get_lat_lng($maps_API_key, $location){
   $data= json_decode(curl_exec($ch));
   $error = curl_error($ch);
   curl_close($ch);
-  if (!$data) { throw new ApiError("$location not found", 404); }
+  if (!$data -> results) { throw new ApiError("$location not found", 404); }
   return $error ? $error : $data -> results[0] -> geometry -> location;
 }
 
@@ -39,7 +39,7 @@ function get_lat_lng($maps_API_key, $location){
     $lng = $lat_lng -> lng;
     $options = [
     CURLOPT_URL => "https://api.yelp.com/v3/businesses/search"
-    ."?term=$term&"
+    ."?term=".urlencode($term)."&"
     ."latitude=$lat&"
     ."longitude=$lng&"
     ."radius=$distance",
