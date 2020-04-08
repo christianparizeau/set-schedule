@@ -4,10 +4,11 @@
   "description": "",
   "main": "webpack.config.js",
   "scripts": {
-    "build": "webpack --mode=production",
+    "build": "webpack --mode=development",
     "watch": "webpack --watch",
     "dev": "npm-run-all --silent --parallel dev:*",
-    "dev:client": "webpack-dev-server"
+    "dev:client": "webpack-dev-server",
+    "dev:server": "php -S '0.0.0.0:9000' -t server/public -c php.ini"
   },
   "devDependencies": {
     "@babel/core": "7.7.4",

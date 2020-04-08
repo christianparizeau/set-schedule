@@ -1,7 +1,6 @@
 <?php
 
 require_once '../api/_lifecycle.php';
-
 switch ($request['path']) {
   case '/':
     readfile('index.html');

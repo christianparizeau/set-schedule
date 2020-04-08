@@ -1,12 +1,15 @@
 import React from 'react';
-
+import ItemCard from './ItemCard';
+import InputForm from './InputForm';
 export default class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       location: '',
       distance: '',
-      topic: ''
+      term: '',
+      businesses: [],
+      isInError: false
     };
     this.fieldChange = this.fieldChange.bind(this);
     this.clearFields = this.clearFields.bind(this);
@@ -21,37 +24,49 @@ export default class App extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    // fetch call to backend
+    const { location, distance, term } = this.state;
+    if (parseInt(distance) > 25) { this.setState({ isInError: true }); } else {
+      fetch(`/api/location?location=${location}&term=${term}&distance=${distance}`)
+        .then(res => res.json())
+        .then(businesses => {
+          if (businesses) {
+            this.setState({ businesses, isInError: false });
+          } else {
+            this.setState({ isInError: true });
+          }
+        });
+    }
   }
 
   clearFields(e) {
     e.preventDefault();
-    this.setState({ location: '', distance: '', topic: '' });
+    this.setState({ location: '', distance: '', term: '' });
   }
 
   render() {
-    return (
-      <>
-        <form autoComplete="off" onSubmit={this.handleSubmit}>
-          <div className="location">
-            <input type="text" name='location' pattern="[0-9]*" maxLength='5' required placeholder='Zip Code' title="Please enter a valid 5-digit US Zip Code" onChange={this.fieldChange} value={this.state.location}/>
+    if (this.state.isInError) {
+      return (
+        <>
+          <InputForm handleSubmit={this.handleSubmit} clearFields={this.clearFields} fieldChange={this.fieldChange} term={this.state.term} location={this.state.location} distance={this.state.distance} />
+          <h4>Something went wrong. Please try again</h4>
+          <h2 className="error">Zip Code must be valid</h2>
+          <h2 className="error">Distance must be 25 miles or less</h2>
+        </>
+      );
+    } else {
+      return (
+        <>
+          <InputForm handleSubmit={this.handleSubmit} clearFields={this.clearFields} fieldChange={this.fieldChange} term={this.state.term} location={this.state.location} distance={this.state.distance}/>
+          <div className="card-container">
+            {this.state.businesses.map((business, index) => (
+              <ItemCard imagePath={business.image_url} key={index} name={business.name}
+                rating={business.rating} address = {business.location.display_address.join(' ')}
+                phone={business.phone} link={business.url}
+              />
+            ))}
           </div>
-          <div className="distance">
-            <input type="text" name='distance' required pattern="[0-9]{0,2}" placeholder='Search Distance (in Miles)' title="Please enter a positive distance less than 100 miles" onChange={this.fieldChange} value={this.state.distance}/>
-          </div>
-          <div className="topic">
-            <input type="text" name='topic' required placeholder="Area of Interest" title="" onChange={this.fieldChange} value={this.state.topic}/>
-          </div>
-          <div className="buttons">
-            <button className="submit-button">
-            Go!
-            </button>
-            <button className="clear-button" onClick={this.clearFields}>
-            Clear Fields
-            </button>
-          </div>
-        </form>
-      </>
-    );
+        </>
+      );
+    }
   }
 }
