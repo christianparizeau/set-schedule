@@ -14,7 +14,7 @@ export default function InputForm({ handleSubmit, clearFields, fieldChange, term
           <input type="text" name='term' required placeholder="Area of Interest" title="" onChange={fieldChange} value={term} />
         </div>
         <div className="buttons">
-          <button className="clear-button" onClick={clearFields}>
+          <button type="button" className="clear-button" onClick={clearFields}>
           Clear Fields
           </button>
           <button className="submit-button">
