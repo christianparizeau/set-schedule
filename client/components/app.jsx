@@ -28,9 +28,11 @@ export default class App extends React.Component {
     if (parseInt(distance) > 25) { this.setState({ isInError: true }); } else {
       fetch(`/api/location?location=${location}&term=${term}&distance=${distance}`)
         .then(res => res.json())
-        .then(businesses => {
-          if (businesses) {
-            this.setState({ businesses, isInError: false });
+        .then(response => {
+          if (response.error) {
+            this.setState({ isInError: true });
+          } else if (response) {
+            this.setState({ businesses: response, isInError: false });
           } else {
             this.setState({ isInError: true });
           }
